@@ -40,7 +40,7 @@ def register_view(request):
             user.set_password(form.cleaned_data['password'])  # Hash password
             user.save()
             messages.success(request, "Registration successful. You can now log in.")
-            return redirect('/')  # Adjust as needed
+            return redirect('/login')  # Adjust as needed
     else:
         form = RegisterForm()
 
