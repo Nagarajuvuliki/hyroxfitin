@@ -8,3 +8,5 @@ urlpatterns = [
     path('profile/',views.profile_create,name="profile"),
     path('logout/',views.logout_view,name="logout"),
 ]
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
