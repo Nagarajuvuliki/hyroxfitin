@@ -5,14 +5,14 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 
-class UserProfile(models.Model):
-    user =  models.CharField(max_length=50, blank=True, null=True)
-    first_name = models.CharField(max_length=50, blank=True, null=True)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)  # Optional for SMS OTP
+# class UserProfile(models.Model):
+#     user =  models.CharField(max_length=50, blank=True, null=True)
+#     first_name = models.CharField(max_length=50, blank=True, null=True)
+#     last_name = models.CharField(max_length=50, blank=True, null=True)
+#     phone_number = models.CharField(max_length=15, blank=True, null=True)  # Optional for SMS OTP
 
-    def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.user.username})"
+#     def __str__(self):
+#         return f"{self.first_name} {self.last_name} ({self.user.username})"
 
 class OTP(models.Model):
     user =  models.CharField(max_length=50, blank=True, null=True)
