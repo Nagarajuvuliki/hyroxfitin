@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: #f4f7fa;
+      padding: 30px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #1a73e8;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    input[type="file"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .checkbox-group,
+    .radio-group {
+      margin-bottom: 15px;
+    }
+    .checkbox-group label,
+    .radio-group label {
+      margin-right: 20px;
+      font-weight: 400;
+    }
+    .preview img {
+      width: 60px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+    .btn {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #155bc4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>User Profile</h2>
+    <form>
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="first_name" required>
+
+        <label>Last Name</label>
+        <input type="text" name="last_name" required>
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Location (Auto-filled)</label>
+        <input type="text" id="location" name="location" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Upload Photos</label>
+        <input type="file" name="photos" id="photos" multiple accept="image/*">
+        <div class="preview" id="preview"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+
+        <label>Age</label>
+        <input type="number" name="age" min="10" max="100">
+
+        <label>Date of Birth</label>
+        <input type="date" name="dob">
+
+        <label>Pin Code</label>
+        <input type="text" name="pincode" pattern="\d{6}" maxlength="6">
+      </div>
+
+      <div class="checkbox-group">
+        <label>Fitness Interests</label><br>
+        <label><input type="checkbox" name="interests" value="Running"> Running</label>
+        <label><input type="checkbox" name="interests" value="Cycling"> Cycling</label>
+        <label><input type="checkbox" name="interests" value="Gym"> Gym</label>
+        <label><input type="checkbox" name="interests" value="Hyrox"> Hyrox</label>
+      </div>
+
+      <div class="radio-group">
+        <label>Fitness Level</label><br>
+        <label><input type="radio" name="fitness_level" value="Beginner"> Beginner</label>
+        <label><input type="radio" name="fitness_level" value="Intermediate"> Intermediate</label>
+        <label><input type="radio" name="fitness_level" value="Advanced"> Advanced</label>
+        <label><input type="radio" name="fitness_level" value="Hyrox Competitor"> Hyrox Competitor</label>
+      </div>
+
+      <div class="checkbox-group">
+        <label>Availability (Days)</label><br>
+        <label><input type="checkbox" name="availability" value="Mon"> Mon</label>
+        <label><input type="checkbox" name="availability" value="Tue"> Tue</label>
+        <label><input type="checkbox" name="availability" value="Wed"> Wed</label>
+        <label><input type="checkbox" name="availability" value="Thu"> Thu</label>
+        <label><input type="checkbox" name="availability" value="Fri"> Fri</label>
+        <label><input type="checkbox" name="availability" value="Sat"> Sat</label>
+        <label><input type="checkbox" name="availability" value="Sun"> Sun</label>
+      </div>
+
+      <div class="checkbox-group">
+        <label>Timing</label><br>
+        <label><input type="checkbox" name="timing" value="Morning"> Morning</label>
+        <label><input type="checkbox" name="timing" value="Afternoon"> Afternoon</label>
+        <label><input type="checkbox" name="timing" value="Evening"> Evening</label>
+        <label><input type="checkbox" name="timing" value="Night"> Night</label>
+      </div>
+
+      <div class="checkbox-group">
+        <label>Partner Preference</label><br>
+        <label><input type="checkbox" name="partner" value="Male"> Male</label>
+        <label><input type="checkbox" name="partner" value="Female"> Female</label>
+      </div>
+
+      <div class="radio-group">
+        <label>Subscription</label><br>
+        <label><input type="radio" name="subscription" value="Free"> Free</label>
+        <label><input type="radio" name="subscription" value="Paid"> Paid</label>
+      </div>
+
+      <div style="text-align:center;">
+        <button type="submit" class="btn">Save Profile</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Get GPS location
+    window.onload = function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const lat = position.coords.latitude.toFixed(4);
+          const lon = position.coords.longitude.toFixed(4);
+          document.getElementById('location').value = `Lat: ${lat}, Lon: ${lon}`;
+        });
+      }
+    };
+
+    // Image preview
+    document.getElementById('photos').addEventListener('change', function () {
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+      for (let file of this.files) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>

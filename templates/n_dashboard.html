@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MyWebsite</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts (Poppins for a modern, professional look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        /* Header */
+        header {
+            background-color: #1a2a44;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .site-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #00ddeb !important;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Container */
+        .container-main {
+            flex: 1;
+            /* padding: 3rem 0; */
+            position: relative;
+        }
+
+        /* Image Section with Overlay */
+        .image-section {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 400px; /* Ensure minimum height for visibility */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-section img {
+            border-radius: 12px;
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Ensure image covers the area */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(26, 42, 68, 0.7); /* Semi-transparent navy background */
+            color: #ffffff;
+            padding: 2rem 3rem;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 100%;
+            z-index: 1; /* Ensure overlay is above image */
+        }
+
+        .image-overlay h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-create-profile {
+            background-color: #f79b1b;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-create-profile:hover {
+            background-color: #00b8c4;
+            color: #ffffff;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a2a44;
+            padding: 1.5rem 0;
+            color: #ffffff;
+        }
+
+        footer .nav-link {
+            color: #d1d5db !important;
+        }
+
+        footer .nav-link:hover {
+            color: #00ddeb !important;
+        }
+
+        /* Animations */
+        .image-overlay {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .image-section {
+                min-height: 300px; /* Adjust for mobile */
+            }
+
+            .image-overlay {
+                padding: 1.5rem 2rem;
+            }
+
+            .image-overlay h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .btn-create-profile {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .navbar-collapse {
+                background-color: #1a2a44;
+                padding: 1rem;
+                border-radius: 8px;
+                z-index: 1000; /* Ensure navbar collapse is above other elements */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="site-name navbar-brand" href="https://hyroxfitindia-aopjwp1p0dhwaem8.builder-preview.com/"><img src="http://127.0.0.1:8000/static/logo2.png" width="50%" height="50%"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a href="https://hyroxfitindia-aopjwp1p0dhwaem8.builder-preview.com/" class="nav-link">Discover Hyrox</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Detailed Workout Rules and Standards</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Train For Hyrox</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">HYROX Heat Playlist</a></li>                    
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+                        {% else %}
+                            <li class="nav-item"><a href="{% url 'register_page' %}" class="nav-link">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container container-main">
+        <div class="row">
+            <!-- Image Section with Overlay -->
+            <div class="col-12 image-section">
+                <img src="/static/dimage.jpg" alt="Dashboard Image" class="img-fluid">
+                <div class="image-overlay">
+                    <h2>Welcome <span style="color: yellow;" id="username">User</span>! Let’s Crush This." <br><br>
+"Let's find your perfect fitness partner."</h2>
+                    <a href="{% url 'profile' %}" class="btn-create-profile">Create Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-2">© 2025 MyWebsite. All rights reserved.</p>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a href="#" class="nav-link">Privacy Policy</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Terms of Service</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Ensure navbar collapse works
+            $('.navbar-toggler').on('click', function() {
+                $('#navbarNav').toggleClass('show');
+            });
+
+            // Placeholder for dynamic username (replace with actual backend data)
+            const username = "{{username}}"; // Example: Replace with backend data or session
+            $('#username').text(username);
+        });
+    </script>
+</body>
+</html>

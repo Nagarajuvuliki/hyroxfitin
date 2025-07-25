@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile - MyWebsite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+        }
+        header {
+            background-color: #1a2a44;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .site-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #00ddeb !important;
+        }
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .container-main {
+            flex: 1;
+            padding: 3rem 0;
+        }
+        .form-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-section h2 {
+            font-weight: 500;
+            color: #1a2a44;
+            margin-bottom: 1.5rem;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #00ddeb;
+            box-shadow: 0 0 0 0.25rem rgba(0, 221, 235, 0.25);
+        }
+        .error {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .btn-primary {
+            background-color: #00ddeb;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #00b8c4;
+        }
+        footer {
+            background-color: #1a2a44;
+            padding: 1.5rem 0;
+            color: #ffffff;
+        }
+        footer .nav-link {
+            color: #d1d5db !important;
+        }
+        footer .nav-link:hover {
+            color: #00ddeb !important;
+        }
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #00ddeb;
+            cursor: pointer;
+            background-color: #e9ecef; /* Placeholder background */
+        }
+        .profile-image-placeholder::after {
+            content: 'Add Photo';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #6c757d;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        #profile_image_input {
+            display: none;
+        }
+        .range-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .range-value {
+            font-size: 1rem;
+            color: #1a2a44;
+            min-width: 50px;
+            text-align: right;
+        }
+        @media (max-width: 768px) {
+            .form-section {
+                max-width: 100%;
+                padding: 1.5rem;
+            }
+            .navbar-collapse {
+                background-color: #1a2a44;
+                padding: 1rem;
+                border-radius: 8px;
+                z-index: 1000;
+            }
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="site-name navbar-brand" href="#">MyWebsite</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container container-main">
+        <div class="form-section">
+            <div class="profile-image-container">
+                {% if profile_image %}
+                    <img src="{{ profile_image.url }}" alt="Profile Image" class="profile-image" id="profileImage">
+                {% else %}
+                    <div class="profile-image profile-image-placeholder" id="profileImage"></div>
+                {% endif %}
+                <input type="file" id="profile_image_input" name="profile_image" accept="image/*">
+            </div>
+            <h2 class="text-center">Create Your Profile</h2>
+            <form id="profileForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ username }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Bio (max 200 words)</label>
+                    <textarea class="form-control" id="bio" name="bio" rows="4"></textarea>
+                    <div id="bioError" class="error">Bio must not exceed 200 words.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" id="gender" name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                        <option value="P">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" min="13" max="120">
+                    <div id="ageError" class="error">Age must be between 13 and 120.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" name="country">
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" id="state" name="state">
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city">
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location (e.g., gym or address)</label>
+                    <input type="text" class="form-control" id="location" name="location">
+                </div>
+                <div class="mb-3">
+                    <label for="preferred_workout" class="form-label">Preferred Workout</label>
+                    <select class="form-select" id="preferred_workout" name="preferred_workout" multiple>
+                        <option value="running">Running</option>
+                        <option value="strength">Strength Training</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="cycling">Cycling</option>
+                        <option value="swimming">Swimming</option>
+                        <option value="hiit">HIIT</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="preferred_language" class="form-label">Preferred Language</label>
+                    <select class="form-select" id="preferred_language" name="preferred_language" multiple>
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="hi">Hindi</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="available_days" class="form-label">Available Days</label>
+                    <select class="form-select" id="available_days" name="available_days" multiple>
+                        <option value="Mon">Monday</option>
+                        <option value="Tue">Tuesday</option>
+                        <option value="Wed">Wednesday</option>
+                        <option value="Thu">Thursday</option>
+                        <option value="Fri">Friday</option>
+                        <option value="Sat">Saturday</option>
+                        <option value="Sun">Sunday</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="training_time" class="form-label">Training Time</label>
+                    <select class="form-select" id="training_time" name="training_time" multiple>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="looking_for" class="form-label">Looking For</label>
+                    <select class="form-select" id="looking_for" name="looking_for">
+                        <option value="">Select Option</option>
+                        <option value="partner">Workout Partner</option>
+                        <option value="trainer">Trainer</option>
+                        <option value="group">Group</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="partner_level" class="form-label">Partner Level</label>
+                    <select class="form-select" id="partner_level" name="partner_level">
+                        <option value="">Select Level</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="running" class="form-label">Running (km/week)</label>
+                    <div class="range-slider-container">
+                        <input type="range" class="form-range" id="running" name="running" min="0" max="100" value="0">
+                        <span class="range-value" id="runningValue">0</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="gym" class="form-label">Gym</label>
+                    <input type="checkbox" id="gym" name="gym">
+                </div>
+                <div class="mb-3">
+                    <label for="cycling" class="form-label">Cycling (km/week)</label>
+                    <div class="range-slider-container">
+                        <input type="range" class="form-range" id="cycling" name="cycling" min="0" max="100" value="0">
+                        <span class="range-value" id="cyclingValue">0</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="sports" class="form-label">Sports (e.g., tennis, basketball)</label>
+                    <input type="text" class="form-control" id="sports" name="sports">
+                </div>
+                <div class="mb-3">
+                    <label for="photos" class="form-label">Photos (Multiple)</label>
+                    <input type="file" class="form-control" id="photos" name="uploaded_photos" multiple accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="video" class="form-label">Video</label>
+                    <input type="file" class="form-control" id="video" name="video" accept="video/*">
+                </div>
+                <div class="mb-3">
+                    <label for="area" class="form-label">Area (km radius)</label>
+                    <div class="range-slider-container">
+                        <input type="range" class="form-range" id="area" name="area" min="0" max="100" value="0">
+                        <span class="range-value" id="areaValue">0</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="partner_age" class="form-label">Partner Age</label>
+                    <input type="number" class="form-control" id="partner_age" name="partner_age" min="13" max="120">
+                    <div id="partnerAgeError" class="error">Partner age must be between 13 and 120.</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Save Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="mb-2">© 2025 MyWebsite. All rights reserved.</p>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a href="#" class="nav-link">Privacy Policy</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Terms of Service</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.navbar-toggler').on('click', function() {
+                $('#navbarNav').toggleClass('show');
+            });
+
+            // Profile image click to trigger file input
+            $('#profileImage').on('click', function() {
+                $('#profile_image_input').click();
+            });
+
+            // Preview profile image
+            $('#profile_image_input').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#profileImage').attr('src', e.target.result).removeClass('profile-image-placeholder');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Range slider value display
+            $('#running').on('input', function() {
+                $('#runningValue').text($(this).val());
+            });
+            $('#cycling').on('input', function() {
+                $('#cyclingValue').text($(this).val());
+            });
+            $('#area').on('input', function() {
+                $('#areaValue').text($(this).val());
+            });
+
+            // Form submission
+            $('#profileForm').on('submit', function(event) {
+                event.preventDefault();
+                let isValid = true;
+
+                // Bio word count validation
+                const bio = $('#bio').val();
+                if (bio.split(/\s+/).length > 200) {
+                    $('#bioError').show();
+                    isValid = false;
+                } else {
+                    $('#bioError').hide();
+                }
+
+                // Age validation
+                const age = $('#age').val();
+                if (age && (age < 13 || age > 120)) {
+                    $('#ageError').show();
+                    isValid = false;
+                } else {
+                    $('#ageError').hide();
+                }
+
+                // Partner age validation
+                const partnerAge = $('#partner_age').val();
+                if (partnerAge && (partnerAge < 13 || partnerAge > 120)) {
+                    $('#partnerAgeError').show();
+                    isValid = false;
+                } else {
+                    $('#partnerAgeError').hide();
+                }
+
+                if (isValid) {
+                    const formData = new FormData(this);
+                    formData.set('preferred_workout', $('#preferred_workout').val() || []);
+                    formData.set('preferred_language', $('#preferred_language').val() || []);
+                    formData.set('available_days', $('#available_days').val() || []);
+                    formData.set('training_time', $('#training_time').val() || []);
+
+                    $.ajax({
+                        url: '/api/profile/',
+                        method: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        success: function(response) {
+                            alert('Profile created successfully!');
+                            window.location.href = '/dashboard/';
+                        },
+                        error: function(xhr) {
+                            const errors = xhr.responseJSON;
+                            alert('Profile creation failed: ' + JSON.stringify(errors));
+                        }
+                    });
+                }
+            });
+
+            // Real-time validations
+            $('#bio').on('input', function() {
+                const wordCount = $(this).val().split(/\s+/).length;
+                $('#bioError').toggle(wordCount > 200);
+            });
+
+            $('#age').on('input', function() {
+                const age = $(this).val();
+                $('#ageError').toggle(age && (age < 13 || age > 120));
+            });
+
+            $('#partner_age').on('input', function() {
+                const partnerAge = $(this).val();
+                $('#partnerAgeError').toggle(partnerAge && (partnerAge < 13 || partnerAge > 120));
+            });
+        });
+    </script>
+</body>
+</html>
