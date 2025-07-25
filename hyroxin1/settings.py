@@ -94,22 +94,22 @@ WSGI_APPLICATION = 'hyroxin1.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASS'),
-            'HOST': os.getenv('HOST_URL'),  # Or your MySQL server's IP/hostname
-            'PORT': os.getenv('DB_PORT'),       # Default MySQL port
-        }
-    }
 # DATABASES = {
-#      'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': os.getenv('DB_NAME'),
+#             'USER': os.getenv('DB_USER'),
+#             'PASSWORD': os.getenv('DB_PASS'),
+#             'HOST': os.getenv('HOST_URL'),  # Or your MySQL server's IP/hostname
+#             'PORT': os.getenv('DB_PORT'),       # Default MySQL port
+#         }
 #     }
-# }
+DATABASES = {
+     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
