@@ -14,12 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.shortcuts import render
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-
+def verify_otp_view(request):
+    user_id = request.GET.get('user_id')
+    return render(request, 'verify_otp.html', {'user_id': user_id})
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',include('hyroxinfit.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
-    path('', TemplateView.as_view(template_name='login.html'), name='home'),
+    path('accountcreate', TemplateView.as_view(template_name='createaccount.html'), name='account_createpate'),
+    # path('hyrox/', include('hyrox.urls')),
+    path('verify-otp/', verify_otp_view, name='verify_otp_page'),
+    # path('', TemplateView.as_view(template_name='signin.html'), name='signin'),
+    # # path('profile1', TemplateView.as_view(template_name='profile.html'), name='profile'),
+    # path('pupdate', TemplateView.as_view(template_name='profileupdate.html'), name='pupdate'),
 ]
